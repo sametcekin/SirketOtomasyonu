@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
@@ -22,7 +17,7 @@ namespace SirketOtomasyonu.Controllers
         // GET: Birim
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Birim.ToListAsync());
+            return View(await _context.Birim.ToListAsync());
         }
 
         // GET: Birim/Details/5
@@ -148,14 +143,14 @@ namespace SirketOtomasyonu.Controllers
             {
                 _context.Birim.Remove(birim);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BirimExists(int id)
         {
-          return _context.Birim.Any(e => e.Id == id);
+            return _context.Birim.Any(e => e.Id == id);
         }
     }
 }

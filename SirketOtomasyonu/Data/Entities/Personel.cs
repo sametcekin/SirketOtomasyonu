@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace SirketOtomasyonu.Data.Entities
+﻿namespace SirketOtomasyonu.Data.Entities
 {
     public class Personel
     {

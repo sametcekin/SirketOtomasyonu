@@ -126,18 +126,18 @@ namespace SirketOtomasyonu.Controllers
             var model = new PersonelUpdateViewModel
             {
                 Id = personel.Id,
-                Aciklama=personel.Aciklama,
-                Adi=personel.Adi,
-                Adres=personel.Adres,
-                BirimId=personel.BirimId.ToString(),
-                Email=personel.Email,
-                GirisTarihi=personel.GirisTarihi,
-                IsActive=personel.IsActive,
+                Aciklama = personel.Aciklama,
+                Adi = personel.Adi,
+                Adres = personel.Adres,
+                BirimId = personel.BirimId.ToString(),
+                Email = personel.Email,
+                GirisTarihi = personel.GirisTarihi,
+                IsActive = personel.IsActive,
                 Maas = personel.Maas,
                 Resim = personel.Resim,
-                Soyadi= personel.Soyadi,
-                Tel1=personel.Tel1,
-                Tel2=personel.Tel2,
+                Soyadi = personel.Soyadi,
+                Tel1 = personel.Tel1,
+                Tel2 = personel.Tel2,
             };
             model.Birimler = new List<SelectListItem>();
             foreach (var birim in birimler)
@@ -191,7 +191,7 @@ namespace SirketOtomasyonu.Controllers
                 return NotFound();
             }
 
-            var personel = await _context.Personel.Include(x=>x.Birim)
+            var personel = await _context.Personel.Include(x => x.Birim)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (personel == null)
             {

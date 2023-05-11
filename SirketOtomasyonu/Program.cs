@@ -1,4 +1,3 @@
-using NuGet.Protocol.Plugins;
 using SirketOtomasyonu.Data;
 
 var builder = WebApplication.CreateBuilder(args);
