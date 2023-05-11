@@ -1,21 +1,20 @@
-﻿@model SirketOtomasyonu.Data.Entities.Personel
+﻿@using SirketOtomasyonu.Models.Personel;
+@model PersonelViewModel
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Personel</h4>
+    <h4>Personel Detayı</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BirimId)
+            @Html.DisplayNameFor(model => model.Birim)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BirimId)
+            @Html.DisplayFor(model => model.Birim)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Adi)
@@ -86,6 +85,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Güncelle</a> |
+    <a asp-action="Index">Listeye dön</a>
 </div>

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SirketOtomasyonu.Models.Personel
 {
-    public class PersonelCreateViewModel
+    public class PersonelUpdateViewModel
     {
+        public int Id { get; set; }
         public string BirimId { get; set; }
         public List<SelectListItem> Birimler { get; set; }
 
@@ -23,6 +25,6 @@ namespace SirketOtomasyonu.Models.Personel
         public string Aciklama { get; set; }
         [DisplayName("Aktif")]
         public bool IsActive { get; set; }
-        public DateTime GirisTarihi { get; set; } = DateTime.Now;
+        public DateTime GirisTarihi { get; set; }
     }
 }

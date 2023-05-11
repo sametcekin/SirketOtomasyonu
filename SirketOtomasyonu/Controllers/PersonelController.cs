@@ -19,7 +19,28 @@ namespace SirketOtomasyonu.Controllers
         // GET: Personel
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Personel.ToListAsync());
+            var personelList = await _context.Personel.Include(x => x.Birim).ToListAsync();
+            var personelModel = new List<PersonelViewModel>();
+            foreach (var personel in personelList)
+            {
+                personelModel.Add(new PersonelViewModel
+                {
+                    Id = personel.Id,
+                    Aciklama = personel.Aciklama,
+                    Adi = personel.Adi,
+                    Adres = personel.Adres,
+                    Birim = personel.Birim.Adi,
+                    Email = personel.Email,
+                    GirisTarihi = personel.GirisTarihi.ToShortDateString(),
+                    IsActive = personel.IsActive,
+                    Maas = personel.Maas,
+                    Resim = personel.Resim,
+                    Soyadi = personel.Soyadi,
+                    Tel1 = personel.Tel1,
+                    Tel2 = personel.Tel2,
+                });
+            }
+            return View(personelModel);
         }
 
         // GET: Personel/Details/5
@@ -30,22 +51,39 @@ namespace SirketOtomasyonu.Controllers
                 return NotFound();
             }
 
-            var personel = await _context.Personel
+            var personel = await _context.Personel.Include(x => x.Birim)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (personel == null)
             {
                 return NotFound();
             }
-
-            return View(personel);
+            var model = new PersonelViewModel
+            {
+                Id = personel.Id,
+                Aciklama = personel.Aciklama,
+                Adi = personel.Adi,
+                Adres = personel.Adres,
+                Birim = personel.Birim?.Adi,
+                Email = personel.Email,
+                GirisTarihi = personel.GirisTarihi.ToShortDateString(),
+                IsActive = personel.IsActive,
+                Maas = personel.Maas,
+                Resim = personel.Resim,
+                Soyadi = personel.Soyadi,
+                Tel1 = personel.Tel1,
+                Tel2 = personel.Tel2,
+            };
+            return View(model);
         }
 
         // GET: Personel/Create
         public IActionResult Create()
         {
             var birimler = _context.Birim.ToList();
+
             var model = new PersonelCreateViewModel();
             model.Birimler = new List<SelectListItem>();
+
             foreach (var birim in birimler)
             {
                 model.Birimler.Add(new SelectListItem { Text = birim.Adi, Value = birim.Id.ToString() });
@@ -82,7 +120,32 @@ namespace SirketOtomasyonu.Controllers
             {
                 return NotFound();
             }
-            return View(personel);
+
+            var birimler = await _context.Birim.ToListAsync();
+
+            var model = new PersonelUpdateViewModel
+            {
+                Id = personel.Id,
+                Aciklama=personel.Aciklama,
+                Adi=personel.Adi,
+                Adres=personel.Adres,
+                BirimId=personel.BirimId.ToString(),
+                Email=personel.Email,
+                GirisTarihi=personel.GirisTarihi,
+                IsActive=personel.IsActive,
+                Maas = personel.Maas,
+                Resim = personel.Resim,
+                Soyadi= personel.Soyadi,
+                Tel1=personel.Tel1,
+                Tel2=personel.Tel2,
+            };
+            model.Birimler = new List<SelectListItem>();
+            foreach (var birim in birimler)
+            {
+                model.Birimler.Add(new SelectListItem { Text = birim.Adi, Value = birim.Id.ToString() });
+            }
+
+            return View(model);
         }
 
         // POST: Personel/Edit/5
@@ -128,14 +191,31 @@ namespace SirketOtomasyonu.Controllers
                 return NotFound();
             }
 
-            var personel = await _context.Personel
+            var personel = await _context.Personel.Include(x=>x.Birim)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (personel == null)
             {
                 return NotFound();
             }
 
-            return View(personel);
+            var model = new PersonelViewModel
+            {
+                Id = personel.Id,
+                Aciklama = personel.Aciklama,
+                Adi = personel.Adi,
+                Adres = personel.Adres,
+                Birim = personel.Birim?.Adi,
+                Email = personel.Email,
+                GirisTarihi = personel.GirisTarihi.ToShortDateString(),
+                IsActive = personel.IsActive,
+                Maas = personel.Maas,
+                Resim = personel.Resim,
+                Soyadi = personel.Soyadi,
+                Tel1 = personel.Tel1,
+                Tel2 = personel.Tel2,
+            };
+
+            return View(model);
         }
 
         // POST: Personel/Delete/5

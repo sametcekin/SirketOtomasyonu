@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SirketOtomasyonu.Data.Entities.Personel>
+﻿@using SirketOtomasyonu.Models.Personel;
+@model IEnumerable<PersonelViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,8 +14,8 @@
 <table class="table">
     <thead>
         <tr>
-            <th style="display:none">
-                @Html.DisplayNameFor(model => model.BirimId)
+            <th>
+                @Html.DisplayNameFor(model => model.Birim)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Adi)
@@ -56,8 +57,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td style="display:none">
-                    @Html.DisplayFor(modelItem => item.BirimId)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birim)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Adi)
@@ -93,9 +94,9 @@
                     @Html.DisplayFor(modelItem => item.GirisTarihi)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Güncelle</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detay</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
                 </td>
             </tr>
         }
