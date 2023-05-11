@@ -6,11 +6,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Personel Oluştur</h4>
+<h4>Yeni Personel Oluştur</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="BirimId" class="control-label">Birim</label>
@@ -55,11 +55,6 @@
                 <span asp-validation-for="Maas" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Resim" class="control-label"></label>
-                <input asp-for="Resim" class="form-control" />
-                <span asp-validation-for="Resim" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Aciklama" class="control-label"></label>
                 <input asp-for="Aciklama" class="form-control" />
                 <span asp-validation-for="Aciklama" class="text-danger"></span>
@@ -73,6 +68,11 @@
                 <label asp-for="GirisTarihi" class="control-label"></label>
                 <input asp-for="GirisTarihi" class="form-control" />
                 <span asp-validation-for="GirisTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" accept="image/png,image/jpeg" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />

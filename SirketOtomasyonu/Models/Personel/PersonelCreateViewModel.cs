@@ -24,5 +24,7 @@ namespace SirketOtomasyonu.Models.Personel
         [DisplayName("Aktif")]
         public bool IsActive { get; set; }
         public DateTime GirisTarihi { get; set; } = DateTime.Now;
+        [DisplayName("Resim Yükle")]
+        public IFormFile ImageFile { get; set; }
     }
 }

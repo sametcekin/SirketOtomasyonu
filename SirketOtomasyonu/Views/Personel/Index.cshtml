@@ -15,6 +15,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Resim)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Birim)
             </th>
             <th>
@@ -39,9 +42,6 @@
                 @Html.DisplayNameFor(model => model.Maas)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Resim)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Aciklama)
             </th>
             <th>
@@ -57,6 +57,12 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-circle btn-lg">
+                        <img src="@("~/img/"+item.Resim)" asp-append-version="true" width="25px" height="25px" />
+                    </a>
+                    @*@Html.DisplayFor(modelItem => item.Resim)*@
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Birim)
                 </td>
@@ -80,9 +86,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Maas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Resim)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Aciklama)

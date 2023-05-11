@@ -10,10 +10,12 @@ namespace SirketOtomasyonu.Controllers
     public class PersonelController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public PersonelController(ApplicationDbContext context)
+        public PersonelController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Personel
@@ -31,7 +33,7 @@ namespace SirketOtomasyonu.Controllers
                     Adres = personel.Adres,
                     Birim = personel.Birim.Adi,
                     Email = personel.Email,
-                    GirisTarihi = personel.GirisTarihi.ToShortDateString(),
+                    GirisTarihi = personel.GirisTarihi.ToString("dd.MM.yyyy"),
                     IsActive = personel.IsActive,
                     Maas = personel.Maas,
                     Resim = personel.Resim,
@@ -77,9 +79,9 @@ namespace SirketOtomasyonu.Controllers
         }
 
         // GET: Personel/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var birimler = _context.Birim.ToList();
+            var birimler = await _context.Birim.ToListAsync();
 
             var model = new PersonelCreateViewModel();
             model.Birimler = new List<SelectListItem>();
@@ -96,10 +98,32 @@ namespace SirketOtomasyonu.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BirimId,Adi,Soyadi,Tel1,Tel2,Email,Adres,Maas,Resim,Aciklama,IsActive,GirisTarihi")] Personel personel)
+        public async Task<IActionResult> Create([Bind("Id,BirimId,Adi,Soyadi,Tel1,Tel2,Email,Adres,Maas,Resim,Aciklama,IsActive,GirisTarihi,ImageFile")] PersonelCreateViewModel model)
         {
+            var personel = new Personel();
             if (ModelState.IsValid)
             {
+                var wwwRoot = _hostEnvironment.WebRootPath;
+                var fileName = $"{Path.GetFileNameWithoutExtension(model.ImageFile.FileName)}_{Guid.NewGuid()}{Path.GetExtension(model.ImageFile.FileName)}";
+                string path = Path.Combine(wwwRoot, "img", fileName);
+                using var fileStream = new FileStream(path, FileMode.Create);
+                await model.ImageFile.CopyToAsync(fileStream);
+
+                personel = new Personel
+                {
+                    Aciklama = model.Aciklama,
+                    Adi = model.Adi,
+                    Adres = model.Adres,
+                    BirimId = Convert.ToInt32(model.BirimId),
+                    Email = model.Email,
+                    GirisTarihi = model.GirisTarihi,
+                    IsActive = model.IsActive,
+                    Maas = model.Maas,
+                    Resim = fileName,
+                    Tel1 = model.Tel1,
+                    Tel2 = model.Tel2,
+                    Soyadi = model.Soyadi,
+                };
                 _context.Add(personel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -153,9 +177,14 @@ namespace SirketOtomasyonu.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BirimId,Adi,Soyadi,Tel1,Tel2,Email,Adres,Maas,Resim,Aciklama,IsActive,GirisTarihi")] Personel personel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BirimId,Adi,Soyadi,Tel1,Tel2,Email,Adres,Maas,Resim,Aciklama,IsActive,GirisTarihi,ImageFile")] PersonelUpdateViewModel model)
         {
-            if (id != personel.Id)
+            var personel = await _context.Personel.FindAsync(id);
+            if (personel == null)
+            {
+                return NotFound();
+            }
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -164,6 +193,30 @@ namespace SirketOtomasyonu.Controllers
             {
                 try
                 {
+                    string fileName = string.Empty;
+                    if (model.ImageFile is not null)
+                    {
+                        var wwwRoot = _hostEnvironment.WebRootPath;
+                        fileName = $"{Path.GetFileNameWithoutExtension(model.ImageFile.FileName)}_{Guid.NewGuid()}{Path.GetExtension(model.ImageFile.FileName)}";
+                        string path = Path.Combine(wwwRoot, "img", fileName);
+                        using var fileStream = new FileStream(path, FileMode.Create);
+                        await model.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    personel.Aciklama = model.Aciklama;
+                    personel.Adi = model.Adi;
+                    personel.Adres = model.Adres;
+                    personel.BirimId = Convert.ToInt32(model.BirimId);
+                    personel.Email = model.Email;
+                    personel.GirisTarihi = model.GirisTarihi;
+                    personel.IsActive = model.IsActive;
+                    personel.Maas = model.Maas;
+                    personel.Resim = !string.IsNullOrEmpty(fileName) ? fileName : personel.Resim;
+                    personel.Tel1 = model.Tel1;
+                    personel.Tel2 = model.Tel2;
+                    personel.Soyadi = model.Soyadi;
+
+
                     _context.Update(personel);
                     await _context.SaveChangesAsync();
                 }

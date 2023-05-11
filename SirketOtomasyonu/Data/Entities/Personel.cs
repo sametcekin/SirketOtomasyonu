@@ -1,4 +1,6 @@
-﻿namespace SirketOtomasyonu.Data.Entities
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace SirketOtomasyonu.Data.Entities
 {
     public class Personel
     {
