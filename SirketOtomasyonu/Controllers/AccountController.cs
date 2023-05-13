@@ -17,8 +17,20 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> LogOut(string returnUrl = null)
         {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ViewData["ReturnUrl"] = returnUrl;
+            return RedirectToAction("Login", "Account");
+        }
+
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -40,38 +52,30 @@ namespace SirketOtomasyonu.Controllers
                 //}
                 if (model.Username.Equals("admin") && model.Password.Equals("admin"))
                 {
-        //            List<Claim> userClaims = new List<Claim>();
+                    List<Claim> userClaims = new();
 
-        //            userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
-        //            userClaims.Add(new Claim(ClaimTypes.Name, isUser.UserName));
-        //            userClaims.Add(new Claim(ClaimTypes.GivenName, isUser.Name));
-        //            userClaims.Add(new Claim(ClaimTypes.Surname, isUser.SurName.ToString()));
+                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()));
+                    userClaims.Add(new Claim(ClaimTypes.Name, "samet"));
+                    userClaims.Add(new Claim(ClaimTypes.GivenName, "Samet Cekin"));
+                    userClaims.Add(new Claim(ClaimTypes.Surname, "Cekin"));
 
-        //            //Veritabanımızdaki role tablosunda kullanıcı hakkında roller varsa onlarıda ekliyoruz
-        //            //Farzedelim,  fcakiroglu16@outlook.com adlı email admin rolüne sahip,
+                    userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
 
-        //            if (isUser.Email == "f-cakiroglu@outlook.com")
-        //            {
-        //                userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
-        //            }
-        //            //Veritabanımızdaki claim tablosunda kullanıcı hakkında claim'ler varsa onlarıda ekliyoruz.
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-        //            var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    };
 
-        //            var authProperties = new AuthenticationProperties
-        //            {
-        //                IsPersistent = loginViewModel.IsRememberMe
-        //            };
 
-        //            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-        //            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-        //                 new ClaimsPrincipal(claimsIdentity),
-        //authProperties);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                          new ClaimsPrincipal(claimsIdentity),
+         authProperties);
                     return RedirectToAction("Index", "Home");
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Login","Account");
         }
 
     }

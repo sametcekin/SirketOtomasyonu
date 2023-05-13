@@ -2,8 +2,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using SirketOtomasyonu.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();  
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+{
+    options.LoginPath = new PathString("/Account/Login");
+    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+    options.LogoutPath = new PathString("/Account/LogOut");
+    options.Cookie.SameSite = SameSiteMode.Strict;
+});  
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();

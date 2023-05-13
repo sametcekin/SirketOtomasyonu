@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@inject IHttpContextAccessor _httpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -43,31 +46,31 @@
 
             <li class="nav-item active">
                 <a class="nav-link" asp-area="" asp-controller="Personel" asp-action="Index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="far fa-address-card"></i>
                     <span>Personel</span>
                 </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" asp-area="" asp-controller="Birim" asp-action="Index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fa fa-folder"></i>
                     <span>Birim</span>
                 </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" asp-area="" asp-controller="Duyuru" asp-action="Index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fa fa-bell"></i>
                     <span>Duyurular</span>
                 </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" asp-area="" asp-controller="Hakkimizda" asp-action="Index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fa fa-info"></i>
                     <span>Hakkımızda</span>
                 </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" asp-area="" asp-controller="Iletisim" asp-action="Create">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="far fa-paper-plane"></i>
                     <span>İletişim</span>
                 </a>
             </li>
@@ -268,7 +271,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@_httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.GivenName).Value</span>
                                 <img class="img-profile rounded-circle"
                                      src="~/img/undraw_profile.svg">
                             </a>
@@ -288,7 +291,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
