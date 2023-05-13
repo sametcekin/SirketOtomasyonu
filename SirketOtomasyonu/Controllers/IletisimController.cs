@@ -13,7 +13,7 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Create()
         {
             return View();
         }
@@ -23,7 +23,7 @@ namespace SirketOtomasyonu.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Post([Bind("Id,AdiSoyadi,Email,Baslik,Mesaj")] Iletisim iletisim)
+        public async Task<IActionResult> Create([Bind("Id,AdiSoyadi,Email,Baslik,Mesaj")] Iletisim iletisim)
         {
             if (ModelState.IsValid)
             {

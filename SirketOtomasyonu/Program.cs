@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using SirketOtomasyonu.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();  
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();

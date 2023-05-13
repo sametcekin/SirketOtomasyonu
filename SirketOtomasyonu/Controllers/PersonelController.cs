@@ -19,11 +19,17 @@ namespace SirketOtomasyonu.Controllers
         }
 
         // GET: Personel
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var personelList = await _context.Personel.Include(x => x.Birim).ToListAsync();
+            ViewData["CurrentFilter"] = searchString;
+            var personelList = _context.Personel.Include(x => x.Birim).AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                personelList = personelList.Where(x => x.Birim.Adi.Contains(searchString) ||
+                                                       x.Adi.Contains(searchString));
+            }
             var personelModel = new List<PersonelViewModel>();
-            foreach (var personel in personelList)
+            foreach (var personel in await personelList.ToListAsync())
             {
                 personelModel.Add(new PersonelViewModel
                 {

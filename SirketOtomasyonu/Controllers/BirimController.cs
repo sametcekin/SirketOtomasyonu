@@ -15,9 +15,17 @@ namespace SirketOtomasyonu.Controllers
         }
 
         // GET: Birim
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Birim.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var birimList = _context.Birim.AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                birimList = birimList.Where(x => x.Adi.Contains(searchString) || 
+                                                 x.Aciklama.Contains(searchString));
+            }
+            return View(await birimList.ToListAsync());
         }
 
         // GET: Birim/Details/5

@@ -15,9 +15,16 @@ namespace SirketOtomasyonu.Controllers
         }
 
         // GET: Duyuru
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Duyuru.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+            var duyuruList = _context.Duyuru.AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                duyuruList = duyuruList.Where(x => x.Baslik.Contains(searchString)
+                || x.Icerik.Contains(searchString));
+            }
+            return View(await duyuruList.ToListAsync());
         }
 
         // GET: Duyuru/Details/5
