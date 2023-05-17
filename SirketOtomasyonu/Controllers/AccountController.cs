@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
 using SirketOtomasyonu.Models.Login;
@@ -43,23 +44,15 @@ namespace SirketOtomasyonu.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var kullanici = new Kullanici
-                //{
-                //    Id=1,
-                //    Adi="Samet",
-                //    Soyadi="Cekin",
-                //    GirisTarihi=
-                //}
-                if (model.Username.Equals("admin") && model.Password.Equals("admin"))
+                var kullanici = await _context.Kullanici.Include(x => x.Yetki).FirstOrDefaultAsync(x => x.KullaniciAdi == model.KullaniciAdi && x.Sifre == model.Sifre);
+                if (kullanici is not null)
                 {
-                    List<Claim> userClaims = new();
-
-                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()));
-                    userClaims.Add(new Claim(ClaimTypes.Name, "samet"));
-                    userClaims.Add(new Claim(ClaimTypes.GivenName, "Samet Cekin"));
-                    userClaims.Add(new Claim(ClaimTypes.Surname, "Cekin"));
-
-                    userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
+                    List<Claim> userClaims = new()
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, kullanici.Id.ToString()),
+                        new Claim(ClaimTypes.GivenName, kullanici.KullaniciAdiSoyadi),
+                        new Claim(ClaimTypes.Role, kullanici.Yetki.Adi)
+                    };
 
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -69,13 +62,14 @@ namespace SirketOtomasyonu.Controllers
                     };
 
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                          new ClaimsPrincipal(claimsIdentity),
-         authProperties);
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
                     return RedirectToAction("Index", "Home");
                 }
             }
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
         }
 
     }

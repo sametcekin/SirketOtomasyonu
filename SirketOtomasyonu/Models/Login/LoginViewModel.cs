@@ -5,8 +5,8 @@ namespace SirketOtomasyonu.Models.Login
     public class LoginViewModel
     {
         [Required]
-        public string Username { get; set; }
+        public string KullaniciAdi { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string Sifre { get; set; }
     }
 }

@@ -5,10 +5,8 @@ namespace SirketOtomasyonu.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=SirketOtomasyonu;Trusted_Connection=True;TrustServerCertificate=True;");
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        { }
 
         public DbSet<Birim> Birim { get; set; }
         public DbSet<Duyuru> Duyuru { get; set; }
@@ -17,5 +15,6 @@ namespace SirketOtomasyonu.Data
         public DbSet<Personel> Personel { get; set; }
         public DbSet<Sirket> Sirket { get; set; }
         public DbSet<Yetki> Yetki { get; set; }
+        public DbSet<PersonelBasari> PersonelBasari { get; set; }
     }
 }

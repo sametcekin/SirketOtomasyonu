@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +10,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.AccessDeniedPath = new PathString("/Account/AccessDenied");
     options.LogoutPath = new PathString("/Account/LogOut");
     options.Cookie.SameSite = SameSiteMode.Strict;
-});  
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SirketDB")));
 
 var app = builder.Build();
 
@@ -26,6 +27,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Sirket Otomasyonu - Giris Yap</title>
 
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,12 +49,12 @@
                                     <form asp-action="Login" class="user">
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <div class="form-group">
-                                            <input asp-for="Username" class="form-control form-control-user" placeholder="Email adresinizi giriniz" />
-                                            <span asp-validation-for="Username" class="text-danger"></span>
+                                            <input asp-for="KullaniciAdi" class="form-control form-control-user" placeholder="Email adresinizi giriniz" />
+                                            <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" asp-for="Password" class="form-control form-control-user" placeholder="Şifre" />
-                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                            <input type="password" asp-for="Sifre" class="form-control form-control-user" placeholder="Şifre" />
+                                            <span asp-validation-for="Sifre" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">

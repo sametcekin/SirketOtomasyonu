@@ -1,14 +1,12 @@
-﻿@using SirketOtomasyonu.Models.Personel;
-@model IEnumerable<PersonelViewModel>
+﻿@model IEnumerable<SirketOtomasyonu.Data.Entities.Kullanici>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Personel Listesi</h1>
+    <h1 class="h3 mb-0 text-gray-800">Kullanıcı Listesi</h1>
     <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-plus fa-sm text-white-50"></i> Yeni Kayıt
     </a>
@@ -16,8 +14,8 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            <input type="text" name="SearchString" class="form-control" value="@ViewData["CurrentFilter"]" placeholder="Kullanici adina gore arama" />
-            <input type="submit" value="Filtrele" class="btn btn-default"/> |
+            <input type="text" name="SearchString" class="form-control" value="@ViewData["CurrentFilter"]" placeholder="Kullanıcı adına gore arama" />
+            <input type="submit" value="Filtrele" class="btn btn-default" /> |
             <a asp-action="Index">Filtrelemeyi Temizle</a>
         </p>
     </div>
@@ -26,10 +24,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Resim)
+                @Html.DisplayNameFor(model => model.KullaniciAdi)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Birim)
+                @Html.DisplayNameFor(model => model.Yetki)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Adi)
@@ -38,22 +36,7 @@
                 @Html.DisplayNameFor(model => model.Soyadi)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tel1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tel2)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Maas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Aciklama)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
@@ -61,6 +44,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.GirisTarihi)
             </th>
+
             <th></th>
         </tr>
     </thead>
@@ -69,13 +53,10 @@
         {
             <tr>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-circle btn-lg">
-                        <img src="@("~/img/"+item.Resim)" asp-append-version="true" width="25px" height="25px" />
-                    </a>
-                    @*@Html.DisplayFor(modelItem => item.Resim)*@
+                    @Html.DisplayFor(modelItem => item.KullaniciAdi)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Birim)
+                    @Html.DisplayFor(modelItem => item.Yetki.Adi)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Adi)
@@ -84,22 +65,7 @@
                     @Html.DisplayFor(modelItem => item.Soyadi)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Tel1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tel2)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adres)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Maas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Aciklama)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsActive)
@@ -107,6 +73,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.GirisTarihi)
                 </td>
+
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Güncelle</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Detay</a> |

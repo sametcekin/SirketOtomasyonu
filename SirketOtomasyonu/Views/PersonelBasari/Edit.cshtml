@@ -1,24 +1,21 @@
-﻿@model SirketOtomasyonu.Data.Entities.Duyuru
+﻿@model SirketOtomasyonu.Data.Entities.PersonelBasari
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h4>Personel Basari Guncelle</h4>
+<hr />
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Baslik" class="control-label"></label>
-                <input asp-for="Baslik" class="form-control" />
-                <span asp-validation-for="Baslik" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Icerik" class="control-label"></label>
-                <input asp-for="Icerik" class="form-control" />
-                <span asp-validation-for="Icerik" class="text-danger"></span>
+                <label asp-for="PersonelId" class="control-label">Personel</label>
+                <select asp-for="PersonelId" class="form-control" asp-items="ViewBag.PersonelId"></select>
+                <span asp-validation-for="PersonelId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Aciklama" class="control-label"></label>
@@ -27,16 +24,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="Tarih" class="control-label"></label>
-                <input asp-for="Tarih" class="form-control" data-date-autoclose/>
+                <input asp-for="Tarih" class="form-control" />
                 <span asp-validation-for="Tarih" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

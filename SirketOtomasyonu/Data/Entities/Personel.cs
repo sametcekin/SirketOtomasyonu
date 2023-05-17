@@ -18,5 +18,7 @@ namespace SirketOtomasyonu.Data.Entities
         public string Aciklama { get; set; }
         public bool IsActive { get; set; }
         public DateTime GirisTarihi { get; set; }
+
+        public string PersonelAdiSoyadi { get { return $"{Adi} {Soyadi}"; } }
     }
 }

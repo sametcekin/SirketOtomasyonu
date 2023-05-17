@@ -1,0 +1,46 @@
+﻿@using SirketOtomasyonu.Models.PersonelBasari;
+@model PersonelBasariViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Personel Başarıları Listesi</h1>
+    <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Yeni Kayıt
+    </a>
+</div>
+<form asp-action="Index" method="get">
+    <div class="form-group">
+        <select asp-items="@Model.PersonelListe" asp-for="PersonelId" id="personelId" class="form-select">
+            <option value="0">Personel seçiniz </option>
+        </select>
+        <span asp-validation-for="PersonelId" class="text-danger"></span>
+    </div>
+</form>
+<br />
+<div class="row" id="personelBasariListeDiv">
+</div>
+
+@section scripts{
+    <script>
+        $('#personelId').on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            console.log('@Url.Action("GetPersonelBasariByPersonelId","PersonelBasari")?personelId=' + this.value)
+            $.get('@Url.Action("GetPersonelBasariByPersonelId","PersonelBasari")?personelId=' + this.value, function (data, status) {
+                console.log(data);
+                $("#personelBasariListeDiv").empty();
+                for (let i = 0; i < data.personelBasariListe.length; i++) {
+                    console.log(data.personelBasariListe[i])
+                    $("#personelBasariListeDiv").append(`${data.personelBasariListe[i].tarih}<div class="alert alert-primary" role="alert">
+                                  ${data.personelBasariListe[i].aciklama}
+                        </div>`);
+                }
+                $("p").append(" <b>Appended text</b>.");
+            })
+        });
+    </script>
+}
