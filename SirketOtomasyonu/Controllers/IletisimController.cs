@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
 
 namespace SirketOtomasyonu.Controllers
 {
+    [Authorize]
     public class IletisimController : Controller
     {
         private readonly ApplicationDbContext _context;

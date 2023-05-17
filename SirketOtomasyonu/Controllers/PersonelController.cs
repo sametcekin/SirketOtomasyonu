@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
@@ -7,6 +8,7 @@ using SirketOtomasyonu.Models.Personel;
 
 namespace SirketOtomasyonu.Controllers
 {
+    [Authorize]
     public class PersonelController : Controller
     {
         private readonly ApplicationDbContext _context;
