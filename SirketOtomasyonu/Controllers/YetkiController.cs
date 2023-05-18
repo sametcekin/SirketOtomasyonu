@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
@@ -22,7 +17,7 @@ namespace SirketOtomasyonu.Controllers
         // GET: Yetki
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Yetki.ToListAsync());
+            return View(await _context.Yetki.ToListAsync());
         }
 
         // GET: Yetki/Details/5
@@ -148,14 +143,14 @@ namespace SirketOtomasyonu.Controllers
             {
                 _context.Yetki.Remove(yetki);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool YetkiExists(int id)
         {
-          return _context.Yetki.Any(e => e.Id == id);
+            return _context.Yetki.Any(e => e.Id == id);
         }
     }
 }

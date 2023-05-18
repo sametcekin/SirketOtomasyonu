@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using SirketOtomasyonu.Data.Entities;
 
 namespace SirketOtomasyonu.Models.PersonelBasari
 {

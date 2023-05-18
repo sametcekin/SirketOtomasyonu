@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
-using SirketOtomasyonu.Data.Entities;
 using SirketOtomasyonu.Models.Login;
 using System.Security.Claims;
 

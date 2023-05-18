@@ -6,7 +6,7 @@ using SirketOtomasyonu.Data.Entities;
 
 namespace SirketOtomasyonu.Controllers
 {
-    [Authorize(Roles ="Super Admin,Admin")]
+    [Authorize(Roles = "Super Admin,Admin")]
     public class BirimController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +24,7 @@ namespace SirketOtomasyonu.Controllers
             var birimList = _context.Birim.AsQueryable();
             if (!string.IsNullOrEmpty(searchString))
             {
-                birimList = birimList.Where(x => x.Adi.Contains(searchString) || 
+                birimList = birimList.Where(x => x.Adi.Contains(searchString) ||
                                                  x.Aciklama.Contains(searchString));
             }
             return View(await birimList.ToListAsync());
