@@ -29,7 +29,7 @@ namespace SirketOtomasyonu.Controllers
             return View(await birimList.ToListAsync());
         }
 
-        public async Task<IActionResult> AddOrEdit(int id=0)
+        public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             if (id == 0)
                 return View(new Birim());

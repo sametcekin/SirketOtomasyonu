@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
+using SirketOtomasyonu.Models.Duyuru;
 
 namespace SirketOtomasyonu.Controllers
 {
@@ -25,45 +26,48 @@ namespace SirketOtomasyonu.Controllers
                 duyuruList = duyuruList.Where(x => x.Baslik.Contains(searchString)
                 || x.Icerik.Contains(searchString));
             }
-            return View(await duyuruList.ToListAsync());
-        }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Baslik,Icerik,Aciklama,Tarih")] Duyuru duyuru)
-        {
-            if (ModelState.IsValid)
+            var model = new List<DuyuruViewModel>();
+            foreach (var item in await duyuruList.ToListAsync())
             {
-                _context.Add(duyuru);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                model.Add(new DuyuruViewModel
+                {
+                    Id = item.Id,
+                    Baslik = item.Baslik,
+                    Icerik = item.Icerik,
+                    Aciklama = item.Aciklama,
+                    Tarih = item.Tarih,
+                });
             }
-            return View(duyuru);
+            return View(model);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> AddOrEdit(int id = 0)
         {
-            if (id == null || _context.Duyuru == null)
-            {
-                return NotFound();
-            }
+            if (id == 0)
+                return View(new DuyuruViewModel());
 
             var duyuru = await _context.Duyuru.FindAsync(id);
             if (duyuru == null)
             {
                 return NotFound();
             }
-            return View(duyuru);
+
+            var model = new DuyuruViewModel
+            {
+                Id = duyuru.Id,
+                Baslik = duyuru.Baslik,
+                Aciklama = duyuru.Aciklama,
+                Icerik = duyuru.Icerik,
+                Tarih = duyuru.Tarih
+            };
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Baslik,Icerik,Aciklama,Tarih")] Duyuru duyuru)
+        public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,Baslik,Icerik,Aciklama,Tarih")] Duyuru duyuru)
         {
             if (id != duyuru.Id)
             {
@@ -72,20 +76,28 @@ namespace SirketOtomasyonu.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if (id == 0)
                 {
-                    _context.Update(duyuru);
+                    _context.Add(duyuru);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!DuyuruExists(duyuru.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(duyuru);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!DuyuruExists(duyuru.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
                 }
                 return RedirectToAction(nameof(Index));

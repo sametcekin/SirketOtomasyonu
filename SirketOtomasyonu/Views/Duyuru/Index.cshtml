@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SirketOtomasyonu.Data.Entities.Duyuru>
+﻿@model IEnumerable<DuyuruViewModel>
 
 @{
     ViewData["Title"] = "Duyurular";
@@ -18,7 +18,7 @@
                 <div class="col-sm-1">
                     <button type="submit" class="btn btn-success  btn-circle btn-sm"><i class='fas fa-search'></i></button>
                     <a asp-action="Index" class="btn btn-warning btn-circle btn-sm"><i class='fas fa-sync'></i></a>
-                    <button type="button" onclick="showInPopup('@Url.Action("Create","Duyuru",null,Context.Request.Scheme)','Duyuru Ekle')" class="btn btn-primary  btn-circle btn-sm">
+                    <button type="button" onclick="showInPopup('@Url.Action("AddOrEdit","Duyuru",null,Context.Request.Scheme)','Duyuru Ekle')" class="btn btn-primary  btn-circle btn-sm">
                         <i class="fas fa-plus fa-sm"></i>
                     </button>
                 </div>
@@ -62,7 +62,7 @@
                     @Html.DisplayFor(modelItem => item.Tarih)
                 </td>
                 <td>
-                    <a onclick="showInPopup('@Url.Action("Edit","Duyuru",new {id=item.Id},Context.Request.Scheme)','Duyuru Guncelle')" class="btn btn-info text-white">Güncelle</a>
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit","Duyuru",new {id=item.Id},Context.Request.Scheme)','Duyuru Guncelle')" class="btn btn-info text-white">Güncelle</a>
                     <a onclick="showInPopup('@Url.Action("Delete","Duyuru",new {id=item.Id},Context.Request.Scheme)','Duyuru Sil')" class="btn btn-danger text-white">Sil</a>
                 </td>
             </tr>

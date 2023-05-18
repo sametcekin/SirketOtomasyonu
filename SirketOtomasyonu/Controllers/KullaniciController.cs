@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
+using SirketOtomasyonu.Models.Kullanici;
 using System.Data;
 
 namespace SirketOtomasyonu.Controllers
@@ -26,7 +27,23 @@ namespace SirketOtomasyonu.Controllers
             {
                 kullaniciList = kullaniciList.Where(x => x.KullaniciAdi.Contains(searchString));
             }
-            return View(await kullaniciList.ToListAsync());
+            var model = new List<KullaniciViewModel>();
+            foreach (var item in await kullaniciList.ToListAsync())
+            {
+                model.Add(new KullaniciViewModel
+                {
+                    Id = item.Id,
+                    Adi = item.Adi,
+                    Soyadi = item.Soyadi,
+                    Email = item.Email,
+                    GirisTarihi = item.GirisTarihi,
+                    IsActive = item.IsActive,
+                    KullaniciAdi = item.KullaniciAdi,
+                    Yetki = item.Yetki,
+                    YetkiId = item.YetkiId,
+                });
+            }
+            return View(model);
         }
 
         public IActionResult Create()
