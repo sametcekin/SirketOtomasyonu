@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
+using SirketOtomasyonu.Models.Yetki;
 using System.Data;
 
 namespace SirketOtomasyonu.Controllers
@@ -26,8 +27,16 @@ namespace SirketOtomasyonu.Controllers
             {
                 yetkiList = yetkiList.Where(x => x.Adi.Contains(searchString));
             }
-
-            return View(await yetkiList.ToListAsync());
+            var model = new List<YetkiViewModel>();
+            foreach (var item in await yetkiList.ToListAsync())
+            {
+                model.Add(new YetkiViewModel
+                {
+                    Id = item.Id,
+                    Adi = item.Adi,
+                });
+            }
+            return View(model);
         }
 
         public IActionResult Create()
