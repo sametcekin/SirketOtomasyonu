@@ -8,16 +8,22 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Personel Listesi</h1>
-    <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        <i class="fas fa-plus fa-sm text-white-50"></i> Yeni Kayıt
-    </a>
 </div>
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            <input type="text" name="SearchString" class="form-control" value="@ViewData["CurrentFilter"]" placeholder="Personel adına gore arama" />
-            <input type="submit" value="Filtrele" class="btn btn-default" /> |
-            <a asp-action="Index">Filtrelemeyi Temizle</a>
+            <div class="row justify-content-center">
+                <div class="col-sm-11">
+                    <input type="text" name="SearchString" class="form-control" value="@ViewData["CurrentFilter"]" placeholder="Personel arama" />
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-success  btn-circle btn-sm"><i class='fas fa-search'></i></button>
+                    <a asp-action="Index" class="btn btn-warning btn-circle btn-sm"><i class='fas fa-sync'></i></a>
+                    <a asp-action="Create" class="btn btn-primary  btn-circle btn-sm">
+                        <i class="fas fa-plus fa-sm"></i>
+                    </a>
+                </div>
+            </div>
         </p>
     </div>
 </form>

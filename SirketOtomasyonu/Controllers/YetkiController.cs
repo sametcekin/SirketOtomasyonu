@@ -30,23 +30,6 @@ namespace SirketOtomasyonu.Controllers
             return View(await yetkiList.ToListAsync());
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Yetki == null)
-            {
-                return NotFound();
-            }
-
-            var yetki = await _context.Yetki
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (yetki == null)
-            {
-                return NotFound();
-            }
-
-            return View(yetki);
-        }
-
         public IActionResult Create()
         {
             return View();

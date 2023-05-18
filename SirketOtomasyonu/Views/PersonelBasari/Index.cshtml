@@ -7,8 +7,11 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Personel Başarıları</h1>
-    <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        <i class="fas fa-plus fa-sm text-white-50"></i> Yeni Kayıt
+    @*    <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <i class="fas fa-plus fa-sm text-white-50"></i> Yeni Kayıt
+    </a>*@
+    <a asp-action="Create" data-toggle="tooltip" title="Yeni kayıt ekle!" class="btn btn-primary  btn-circle btn-sm">
+        <i class="fas fa-plus fa-sm"></i>
     </a>
 </div>
 <form asp-action="Index" method="get">
@@ -21,6 +24,20 @@
 </form>
 <br />
 <div class="row" id="personelBasariListeDiv">
+    @{
+        if (Model.PersonelId == 0)
+        {
+            <div class="alert alert-warning" role="alert">
+                Lütfen personel seçiniz!
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                Personele ait başarı kaydı bulunamadı.
+            </div>
+        }
+    }
 </div>
 
 @section scripts{
@@ -33,14 +50,14 @@
                 $("#personelBasariListeDiv").empty();
                 if (data.personelBasariListe.length === 0) {
                     $("#personelBasariListeDiv").append(`<div class="alert alert-warning" role="alert">
-                                                  Personele ait başarı kaydı bulunamadı.
-                                        </div>`);
+                                                          Personele ait başarı kaydı bulunamadı.
+                                                </div>`);
                     return;
                 }
                 for (let i = 0; i < data.personelBasariListe.length; i++) {
                     $("#personelBasariListeDiv").append(`${data.personelBasariListe[i].tarih.split('T')[0]}<div class="alert alert-primary" role="alert">
-                                          ${data.personelBasariListe[i].aciklama}
-                                </div>`);
+                                                  ${data.personelBasariListe[i].aciklama}
+                                        </div>`);
                 }
             })
         });

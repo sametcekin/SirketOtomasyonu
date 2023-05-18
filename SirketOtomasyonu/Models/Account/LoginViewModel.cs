@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SirketOtomasyonu.Models.Login
+namespace SirketOtomasyonu.Models.Account
 {
     public class LoginViewModel
     {
