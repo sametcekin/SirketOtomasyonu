@@ -15,7 +15,7 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        public IActionResult Create()
+        public IActionResult Index()
         {
             return View();
         }
@@ -29,7 +29,7 @@ namespace SirketOtomasyonu.Controllers
                 iletisim.Tarih = DateTime.Now;
                 _context.Add(iletisim);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             return View(iletisim);
         }
