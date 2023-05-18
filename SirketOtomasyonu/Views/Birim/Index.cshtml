@@ -18,7 +18,7 @@
                 <div class="col-sm-1">
                     <button type="submit" class="btn btn-success  btn-circle btn-sm"><i class='fas fa-search'></i></button>
                     <a asp-action="Index" class="btn btn-warning btn-circle btn-sm"><i class='fas fa-sync'></i></a>
-                    <button type="button" onclick="showInPopup('@Url.Action("Create","Birim",null,Context.Request.Scheme)','Birim Ekle')" class="btn btn-primary  btn-circle btn-sm">
+                    <button type="button" onclick="showInPopup('@Url.Action("AddOrEdit","Birim",null,Context.Request.Scheme)','Birim Ekle')" class="btn btn-primary  btn-circle btn-sm">
                         <i class="fas fa-plus fa-sm"></i>
                     </button>
                 </div>
@@ -50,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.Aciklama)
                 </td>
                 <td>
-                    <a onclick="showInPopup('@Url.Action("Edit","Birim",new {id=item.Id},Context.Request.Scheme)','Birim Guncelle')" class="btn btn-info text-white">Güncelle</a>
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit","Birim",new {id=item.Id},Context.Request.Scheme)','Birim Guncelle')" class="btn btn-info text-white">Güncelle</a>
                     <a onclick="showInPopup('@Url.Action("Delete","Birim",new {id=item.Id},Context.Request.Scheme)','Birim Sil')" class="btn btn-danger text-white">Sil</a>
                 </td>
             </tr>

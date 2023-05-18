@@ -29,30 +29,10 @@ namespace SirketOtomasyonu.Controllers
             return View(await birimList.ToListAsync());
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> AddOrEdit(int id=0)
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Adi,Aciklama")] Birim birim)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(birim);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(birim);
-        }
-
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Birim == null)
-            {
-                return NotFound();
-            }
+            if (id == 0)
+                return View(new Birim());
 
             var birim = await _context.Birim.FindAsync(id);
             if (birim == null)
@@ -64,7 +44,7 @@ namespace SirketOtomasyonu.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Adi,Aciklama")] Birim birim)
+        public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,Adi,Aciklama")] Birim birim)
         {
             if (id != birim.Id)
             {
@@ -73,22 +53,31 @@ namespace SirketOtomasyonu.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if (id == 0)
                 {
-                    _context.Update(birim);
+                    _context.Add(birim);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!BirimExists(birim.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(birim);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!BirimExists(birim.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(birim);
