@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
+using System.Data;
 
 namespace SirketOtomasyonu.Controllers
 {
+    [Authorize(Roles = "Super Admin,Admin")]
     public class KullaniciController : Controller
     {
         private readonly ApplicationDbContext _context;

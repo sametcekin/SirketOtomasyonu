@@ -7,7 +7,7 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Duyuru Listesi</h1>
-    <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <a onclick="showInPopup('@Url.Action("Create","Duyuru",null,Context.Request.Scheme)','Duyuru Ekle')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-plus fa-sm text-white-50"></i> Yeni Kayıt
     </a>
 </div>
@@ -56,9 +56,9 @@
                     @Html.DisplayFor(modelItem => item.Tarih)
                 </td>
                 <td>
-                    <a onclick="showInPopup('@Url.Action("Edit","Duyuru",new {id=item.Id},Context.Request.Scheme)','Duyuru Guncelle')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Guncelle</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Detay</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                    <a onclick="showInPopup('@Url.Action("Edit","Duyuru",new {id=item.Id},Context.Request.Scheme)','Duyuru Guncelle')" class="btn btn-info text-white">Güncelle</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success text-white">Detay</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white">Sil</a>
                 </td>
             </tr>
         }

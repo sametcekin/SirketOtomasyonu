@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
+using System.Data;
 
 namespace SirketOtomasyonu.Controllers
 {
+    [Authorize(Roles = "Super Admin,Admin")]
     public class YetkiController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -15,9 +18,17 @@ namespace SirketOtomasyonu.Controllers
         }
 
         // GET: Yetki
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Yetki.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var yetkiList = _context.Yetki.AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                yetkiList = yetkiList.Where(x => x.Adi.Contains(searchString));
+            }
+
+            return View(await yetkiList.ToListAsync());
         }
 
         // GET: Yetki/Details/5

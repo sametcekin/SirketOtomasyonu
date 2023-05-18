@@ -8,7 +8,7 @@ using SirketOtomasyonu.Models.Personel;
 
 namespace SirketOtomasyonu.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin,Admin")]
     public class PersonelController : Controller
     {
         private readonly ApplicationDbContext _context;
