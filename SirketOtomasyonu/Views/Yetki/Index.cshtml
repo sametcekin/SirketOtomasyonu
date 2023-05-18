@@ -18,7 +18,7 @@
                 <div class="col-sm-1">
                     <button type="submit" class="btn btn-success  btn-circle btn-sm"><i class='fas fa-search'></i></button>
                     <a asp-action="Index" class="btn btn-warning btn-circle btn-sm"><i class='fas fa-sync'></i></a>
-                    <a onclick="showInPopup('@Url.Action("Create","Yetki",null,Context.Request.Scheme)','Yetki Ekle')" class="btn btn-primary  btn-circle btn-sm">
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit","Yetki",null,Context.Request.Scheme)','Yetki Ekle')" class="btn btn-primary  btn-circle btn-sm">
                         <i class="fas fa-plus fa-sm"></i>
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Adi)
                 </td>
                 <td>
-                    <a onclick="showInPopup('@Url.Action("Edit","Yetki",new {id=item.Id},Context.Request.Scheme)','Yetki Güncelle')" class="btn btn-info text-white">Güncelle</a>
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit","Yetki",new {id=item.Id},Context.Request.Scheme)','Yetki Güncelle')" class="btn btn-info text-white">Güncelle</a>
                     <a onclick="showInPopup('@Url.Action("Delete","Yetki",new {id=item.Id},Context.Request.Scheme)','Yetki Sil')" class="btn btn-danger text-white">Sil</a>
                 </td>
             </tr>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 using SirketOtomasyonu.Data.Entities;
+using SirketOtomasyonu.Models.Birim;
 
 namespace SirketOtomasyonu.Controllers
 {
@@ -26,20 +27,37 @@ namespace SirketOtomasyonu.Controllers
                 birimList = birimList.Where(x => x.Adi.Contains(searchString) ||
                                                  x.Aciklama.Contains(searchString));
             }
-            return View(await birimList.ToListAsync());
+
+            var model = new List<BirimViewModel>();
+            foreach (var item in await birimList.ToListAsync())
+            {
+                model.Add(new BirimViewModel
+                {
+                    Id = item.Id,
+                    Adi = item.Adi,
+                    Aciklama = item.Aciklama,
+                });
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             if (id == 0)
-                return View(new Birim());
+                return View(new BirimViewModel());
 
             var birim = await _context.Birim.FindAsync(id);
             if (birim == null)
             {
                 return NotFound();
             }
-            return View(birim);
+            var model = new BirimViewModel
+            {
+                Id = birim.Id,
+                Adi = birim.Adi,
+                Aciklama = birim.Aciklama
+            };
+            return View(model);
         }
 
         [HttpPost]

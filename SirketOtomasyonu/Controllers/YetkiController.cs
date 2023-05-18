@@ -39,29 +39,11 @@ namespace SirketOtomasyonu.Controllers
             return View(model);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> AddOrEdit(int id = 0)
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Adi")] Yetki yetki)
-        {
-            if (ModelState.IsValid)
+            if (id == 0)
             {
-                _context.Add(yetki);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(yetki);
-        }
-
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Yetki == null)
-            {
-                return NotFound();
+                return View(new YetkiViewModel());
             }
 
             var yetki = await _context.Yetki.FindAsync(id);
@@ -69,12 +51,18 @@ namespace SirketOtomasyonu.Controllers
             {
                 return NotFound();
             }
-            return View(yetki);
+
+            var model = new YetkiViewModel
+            {
+                Id = yetki.Id,
+                Adi = yetki.Adi,
+            };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Adi")] Yetki yetki)
+        public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,Adi")] Yetki yetki)
         {
             if (id != yetki.Id)
             {
@@ -83,20 +71,28 @@ namespace SirketOtomasyonu.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if (id == 0)
                 {
-                    _context.Update(yetki);
+                    _context.Add(yetki);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!YetkiExists(yetki.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(yetki);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!YetkiExists(yetki.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
                 }
                 return RedirectToAction(nameof(Index));

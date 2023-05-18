@@ -1,14 +1,14 @@
-﻿@model SirketOtomasyonu.Data.Entities.Yetki
+﻿@model YetkiViewModel
 
 @{
-    ViewData["Title"] = "Create";
     Layout = null;
 }
 
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Create">
+        <form asp-action="AddOrEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Adi" class="control-label"></label>
                 <input asp-for="Adi" class="form-control" />
