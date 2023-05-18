@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
@@ -18,15 +19,6 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> LogOut(string returnUrl = null)
-        {
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            ViewData["ReturnUrl"] = returnUrl;
-            return RedirectToAction("Login", "Account");
-        }
-
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -35,9 +27,6 @@ namespace SirketOtomasyonu.Controllers
             return View();
         }
 
-        // POST: Login/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -72,5 +61,20 @@ namespace SirketOtomasyonu.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> LogOut(string returnUrl = null)
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ViewData["ReturnUrl"] = returnUrl;
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

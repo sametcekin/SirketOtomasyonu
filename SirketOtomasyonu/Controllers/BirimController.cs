@@ -6,7 +6,7 @@ using SirketOtomasyonu.Data.Entities;
 
 namespace SirketOtomasyonu.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Super Admin,Admin")]
     public class BirimController : Controller
     {
         private readonly ApplicationDbContext _context;

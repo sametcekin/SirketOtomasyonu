@@ -19,20 +19,17 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = new HomeViewModel();
-            model.TotalAdminSayisi = _context.Kullanici.Count(x => x.YetkiId == 1 || x.YetkiId == 2);
-            model.TotalKullaniciSayisi = _context.Kullanici.Count();
-            model.EnDusukMaas= _context.Personel.Min(x=>x.Maas);
-            model.EnYuksekMaas= _context.Personel.Max(x=>x.Maas);
-            model.PersonselListe = _context.Personel.OrderByDescending(x=>x.Id).Take(5).Include(x=>x.Birim).ToList();
+            var model = new HomeViewModel
+            {
+                TotalAdminSayisi = _context.Kullanici.Count(x => x.YetkiId == 1 || x.YetkiId == 2),
+                TotalKullaniciSayisi = _context.Kullanici.Count(),
+                EnDusukMaas = _context.Personel.Min(x => x.Maas),
+                EnYuksekMaas = _context.Personel.Max(x => x.Maas),
+                PersonselListe = await _context.Personel.OrderByDescending(x => x.Id).Take(5).Include(x => x.Birim).ToListAsync()
+            };
             return View(model);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
