@@ -19,7 +19,6 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        // GET: PersonelBasari
         public async Task<IActionResult> Index(int personelId = 0)
         {
             ViewData["CurrentFilter"] = personelId;
@@ -38,7 +37,6 @@ namespace SirketOtomasyonu.Controllers
             return View(liste);
         }
 
-        //[HttpGet("{personelId}")]
         public async Task<IActionResult> GetPersonelBasariByPersonelId(int personelId = 0)
         {
             var liste = new PersonelBasariViewModel();
@@ -58,7 +56,6 @@ namespace SirketOtomasyonu.Controllers
         }
 
 
-        // GET: PersonelBasari/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.PersonelBasari == null)
@@ -77,16 +74,12 @@ namespace SirketOtomasyonu.Controllers
             return View(personelBasari);
         }
 
-        // GET: PersonelBasari/Create
         public IActionResult Create()
         {
             ViewData["PersonelId"] = new SelectList(_context.Personel, "Id", $"PersonelAdiSoyadi");
             return View();
         }
 
-        // POST: PersonelBasari/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PersonelId,Aciklama,Tarih")] PersonelBasari personelBasari)
@@ -101,7 +94,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personelBasari);
         }
 
-        // GET: PersonelBasari/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.PersonelBasari == null)
@@ -118,9 +110,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personelBasari);
         }
 
-        // POST: PersonelBasari/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,PersonelId,Aciklama,Tarih")] PersonelBasari personelBasari)
@@ -154,7 +143,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personelBasari);
         }
 
-        // GET: PersonelBasari/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.PersonelBasari == null)
@@ -173,7 +161,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personelBasari);
         }
 
-        // POST: PersonelBasari/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

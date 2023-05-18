@@ -44,7 +44,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.GirisTarihi)
             </th>
-
             <th></th>
         </tr>
     </thead>
@@ -73,11 +72,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.GirisTarihi)
                 </td>
-
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Güncelle</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detay</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                    <a class="btn btn-info text-white" asp-action="Edit" asp-route-id="@item.Id">Güncelle</a>
+                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
                 </td>
             </tr>
         }

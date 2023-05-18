@@ -8,5 +8,7 @@
         public int TotalKullaniciSayisi { get; set; }
 
         public List<Data.Entities.Personel> PersonselListe { get; set; }
+
+        public List<Data.Entities.Duyuru> DuyuruListe { get; set; }
     }
 }

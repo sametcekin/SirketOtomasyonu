@@ -16,7 +16,6 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        // GET: Birim
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -30,33 +29,11 @@ namespace SirketOtomasyonu.Controllers
             return View(await birimList.ToListAsync());
         }
 
-        // GET: Birim/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Birim == null)
-            {
-                return NotFound();
-            }
-
-            var birim = await _context.Birim
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (birim == null)
-            {
-                return NotFound();
-            }
-
-            return View(birim);
-        }
-
-        // GET: Birim/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Birim/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Adi,Aciklama")] Birim birim)
@@ -70,7 +47,6 @@ namespace SirketOtomasyonu.Controllers
             return View(birim);
         }
 
-        // GET: Birim/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Birim == null)
@@ -86,9 +62,6 @@ namespace SirketOtomasyonu.Controllers
             return View(birim);
         }
 
-        // POST: Birim/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Adi,Aciklama")] Birim birim)
@@ -121,7 +94,6 @@ namespace SirketOtomasyonu.Controllers
             return View(birim);
         }
 
-        // GET: Birim/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Birim == null)
@@ -139,7 +111,6 @@ namespace SirketOtomasyonu.Controllers
             return View(birim);
         }
 
-        // POST: Birim/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

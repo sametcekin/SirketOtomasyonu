@@ -17,7 +17,6 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        // GET: Yetki
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -31,7 +30,6 @@ namespace SirketOtomasyonu.Controllers
             return View(await yetkiList.ToListAsync());
         }
 
-        // GET: Yetki/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Yetki == null)
@@ -49,15 +47,11 @@ namespace SirketOtomasyonu.Controllers
             return View(yetki);
         }
 
-        // GET: Yetki/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Yetki/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Adi")] Yetki yetki)
@@ -71,7 +65,6 @@ namespace SirketOtomasyonu.Controllers
             return View(yetki);
         }
 
-        // GET: Yetki/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Yetki == null)
@@ -87,9 +80,6 @@ namespace SirketOtomasyonu.Controllers
             return View(yetki);
         }
 
-        // POST: Yetki/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Adi")] Yetki yetki)
@@ -122,7 +112,6 @@ namespace SirketOtomasyonu.Controllers
             return View(yetki);
         }
 
-        // GET: Yetki/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Yetki == null)
@@ -140,7 +129,6 @@ namespace SirketOtomasyonu.Controllers
             return View(yetki);
         }
 
-        // POST: Yetki/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

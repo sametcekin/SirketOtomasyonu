@@ -16,7 +16,6 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        // GET: Duyuru
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -29,33 +28,11 @@ namespace SirketOtomasyonu.Controllers
             return View(await duyuruList.ToListAsync());
         }
 
-        // GET: Duyuru/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Duyuru == null)
-            {
-                return NotFound();
-            }
-
-            var duyuru = await _context.Duyuru
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (duyuru == null)
-            {
-                return NotFound();
-            }
-
-            return View(duyuru);
-        }
-
-        // GET: Duyuru/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Duyuru/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Baslik,Icerik,Aciklama,Tarih")] Duyuru duyuru)
@@ -69,7 +46,6 @@ namespace SirketOtomasyonu.Controllers
             return View(duyuru);
         }
 
-        // GET: Duyuru/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Duyuru == null)
@@ -85,9 +61,6 @@ namespace SirketOtomasyonu.Controllers
             return View(duyuru);
         }
 
-        // POST: Duyuru/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Baslik,Icerik,Aciklama,Tarih")] Duyuru duyuru)
@@ -120,7 +93,6 @@ namespace SirketOtomasyonu.Controllers
             return View(duyuru);
         }
 
-        // GET: Duyuru/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Duyuru == null)
@@ -138,7 +110,6 @@ namespace SirketOtomasyonu.Controllers
             return View(duyuru);
         }
 
-        // POST: Duyuru/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

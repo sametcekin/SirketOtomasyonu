@@ -20,7 +20,6 @@ namespace SirketOtomasyonu.Controllers
             this._hostEnvironment = hostEnvironment;
         }
 
-        // GET: Personel
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -53,7 +52,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personelModel);
         }
 
-        // GET: Personel/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Personel == null)
@@ -86,7 +84,6 @@ namespace SirketOtomasyonu.Controllers
             return View(model);
         }
 
-        // GET: Personel/Create
         public async Task<IActionResult> Create()
         {
             var birimler = await _context.Birim.ToListAsync();
@@ -101,9 +98,6 @@ namespace SirketOtomasyonu.Controllers
             return View(model);
         }
 
-        // POST: Personel/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,BirimId,Adi,Soyadi,Tel1,Tel2,Email,Adres,Maas,Resim,Aciklama,IsActive,GirisTarihi,ImageFile")] PersonelCreateViewModel model)
@@ -139,7 +133,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personel);
         }
 
-        // GET: Personel/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Personel == null)
@@ -180,9 +173,6 @@ namespace SirketOtomasyonu.Controllers
             return View(model);
         }
 
-        // POST: Personel/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,BirimId,Adi,Soyadi,Tel1,Tel2,Email,Adres,Maas,Resim,Aciklama,IsActive,GirisTarihi,ImageFile")] PersonelUpdateViewModel model)
@@ -244,7 +234,6 @@ namespace SirketOtomasyonu.Controllers
             return View(personel);
         }
 
-        // GET: Personel/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Personel == null)
@@ -279,7 +268,6 @@ namespace SirketOtomasyonu.Controllers
             return View(model);
         }
 
-        // POST: Personel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

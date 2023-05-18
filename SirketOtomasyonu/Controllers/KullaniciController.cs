@@ -18,7 +18,6 @@ namespace SirketOtomasyonu.Controllers
             _context = context;
         }
 
-        // GET: Kullanicis
         public async Task<IActionResult> Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -30,35 +29,12 @@ namespace SirketOtomasyonu.Controllers
             return View(await kullaniciList.ToListAsync());
         }
 
-        // GET: Kullanicis/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Kullanici == null)
-            {
-                return NotFound();
-            }
-
-            var kullanici = await _context.Kullanici
-                .Include(k => k.Yetki)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (kullanici == null)
-            {
-                return NotFound();
-            }
-
-            return View(kullanici);
-        }
-
-        // GET: Kullanicis/Create
         public IActionResult Create()
         {
             ViewData["YetkiId"] = new SelectList(_context.Yetki, "Id", "Adi");
             return View();
         }
 
-        // POST: Kullanicis/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,YetkiId,KullaniciAdi,Sifre,Adi,Soyadi,Email,IsActive,GirisTarihi")] Kullanici kullanici)
@@ -73,7 +49,6 @@ namespace SirketOtomasyonu.Controllers
             return View(kullanici);
         }
 
-        // GET: Kullanicis/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Kullanici == null)
@@ -90,9 +65,6 @@ namespace SirketOtomasyonu.Controllers
             return View(kullanici);
         }
 
-        // POST: Kullanicis/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,YetkiId,KullaniciAdi,Sifre,Adi,Soyadi,Email,IsActive,GirisTarihi")] Kullanici kullanici)
@@ -126,7 +98,6 @@ namespace SirketOtomasyonu.Controllers
             return View(kullanici);
         }
 
-        // GET: Kullanicis/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Kullanici == null)
@@ -145,7 +116,6 @@ namespace SirketOtomasyonu.Controllers
             return View(kullanici);
         }
 
-        // POST: Kullanicis/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
