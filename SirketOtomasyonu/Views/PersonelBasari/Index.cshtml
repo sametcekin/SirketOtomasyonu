@@ -31,15 +31,18 @@
             var valueSelected = this.value;
             console.log('@Url.Action("GetPersonelBasariByPersonelId","PersonelBasari")?personelId=' + this.value)
             $.get('@Url.Action("GetPersonelBasariByPersonelId","PersonelBasari")?personelId=' + this.value, function (data, status) {
-                console.log(data);
                 $("#personelBasariListeDiv").empty();
-                for (let i = 0; i < data.personelBasariListe.length; i++) {
-                    console.log(data.personelBasariListe[i])
-                    $("#personelBasariListeDiv").append(`${data.personelBasariListe[i].tarih}<div class="alert alert-primary" role="alert">
-                                  ${data.personelBasariListe[i].aciklama}
-                        </div>`);
+                if (data.personelBasariListe.length === 0) {
+                    $("#personelBasariListeDiv").append(`<div class="alert alert-warning" role="alert">
+                                                  Personele ait başarı kaydı bulunamadı.
+                                        </div>`);
+                    return;
                 }
-                $("p").append(" <b>Appended text</b>.");
+                for (let i = 0; i < data.personelBasariListe.length; i++) {
+                    $("#personelBasariListeDiv").append(`${data.personelBasariListe[i].tarih.split('T')[0]}<div class="alert alert-primary" role="alert">
+                                          ${data.personelBasariListe[i].aciklama}
+                                </div>`);
+                }
             })
         });
     </script>

@@ -74,7 +74,7 @@
                 </td>
                 <td>
                     <a class="btn btn-info text-white" asp-action="Edit" asp-route-id="@item.Id">Güncelle</a>
-                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                    <a onclick="showInPopup('@Url.Action("Delete","Kullanici",new {id=item.Id},Context.Request.Scheme)','Kullanıcı Sil')" class="btn btn-danger text-white">Sil</a>
                 </td>
             </tr>
         }
