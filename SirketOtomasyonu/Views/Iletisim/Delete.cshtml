@@ -1,0 +1,17 @@
+﻿@model IletisimViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="text-center m-3">
+        <b>@Html.DisplayFor(model => model.AdiSoyadi)</b>  kişisinden gelen mesajı silmek istediğinize emin misiniz?
+    </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="text-center">
+            <input type="submit" value="Evet" class="btn btn-danger" />
+        </div>
+    </form>
+</div>

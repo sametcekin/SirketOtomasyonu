@@ -28,7 +28,7 @@
 </form>
 
 
-<table class="table">
+<table id="myTable" class="table">
     <thead>
         <tr>
             <th>
@@ -88,3 +88,16 @@
         }
     </tbody>
 </table>
+
+@section scripts{
+    <script>
+        let table = new DataTable('#myTable', {
+            searching: false,
+            "lengthChange": false,
+            pageLength: 5,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/tr.json',
+            },
+        });
+    </script>
+}

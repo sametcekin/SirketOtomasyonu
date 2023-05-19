@@ -1,0 +1,84 @@
+﻿@model IletisimCreateViewModel
+
+@{
+    ViewData["Title"] = "İletişim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>İletişim</h4>
+<hr />
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Bize ulaşın</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="AdiSoyadi" class="control-label"></label>
+                        <input asp-for="AdiSoyadi" class="form-control" />
+                        <span asp-validation-for="AdiSoyadi" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Baslik" class="control-label"></label>
+                        <input asp-for="Baslik" class="form-control" />
+                        <span asp-validation-for="Baslik" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mesaj" class="control-label"></label>
+                        <textarea asp-for="Mesaj" class="form-control"></textarea>
+                        <span asp-validation-for="Mesaj" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Gönder" class="btn btn-primary" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Şirket İletişim Bilgileri</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <b>Şirket Adı:</b> <label>Test Company</label>
+                </div>
+                <div class="form-group">
+                    <b>Şirket Tel1:</b> <label>+90 123 123 12 10</label>
+                </div>
+                <div class="form-group">
+                    <b>Şirket Tel2:</b> <label>+90 123 123 12 11</label>
+                </div>
+                <div class="form-group">
+                    <b>Şirket Fax:</b> <label>+90 123 123 12 12</label>
+                </div>
+                <div class="form-group">
+                    <b>Şirket Email:</b> <label>email@@email.com</label>
+                </div>
+                <div class="form-group">
+                    <b>Şirket Adres:</b> <label>Ankara</label>
+                </div>
+                <div class="form-group">
+                    <b>Şirket Kuruluş Tarihi:</b> <label>@DateTime.Now.ToShortDateString()</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
