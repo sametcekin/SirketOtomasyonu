@@ -46,7 +46,7 @@ namespace SirketOtomasyonu.Controllers
 
                     var authProperties = new AuthenticationProperties
                     {
-                        IsPersistent = true
+                        IsPersistent = model.BeniHatirla
                     };
 
 

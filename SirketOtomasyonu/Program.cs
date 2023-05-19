@@ -3,8 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using SirketOtomasyonu.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
 {
     options.LoginPath = new PathString("/Account/Login");
     options.AccessDeniedPath = new PathString("/Account/AccessDenied");
@@ -13,6 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SirketDB")));
 
 var app = builder.Build();

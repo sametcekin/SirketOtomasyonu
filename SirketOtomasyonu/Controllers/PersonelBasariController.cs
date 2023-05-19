@@ -38,6 +38,24 @@ namespace SirketOtomasyonu.Controllers
         }
 
 
+        public async Task<IActionResult> GetPersonelBasariByPersonelId(int personelId = 0)
+        {
+            var liste = new PersonelBasariViewModel();
+
+            var personelBasariList = _context.PersonelBasari.Include(p => p.Personel).AsQueryable();
+
+            if (personelId is not 0)
+            {
+                personelBasariList = personelBasariList.Where(x => x.PersonelId == personelId);
+                foreach (var item in await personelBasariList.ToListAsync())
+                {
+                    liste.PersonelBasariListe.Add(item);
+                }
+            }
+            liste.PersonelId = personelId;
+            return Json(liste);
+        }
+
         public IActionResult Create()
         {
             ViewData["PersonelId"] = new SelectList(_context.Personel, "Id", $"PersonelAdiSoyadi");

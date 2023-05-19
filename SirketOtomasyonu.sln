@@ -5,7 +5,12 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SirketOtomasyonu", "SirketOtomasyonu\SirketOtomasyonu.csproj", "{4197AEC2-3034-4562-B4CD-A94BC8A3D9F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SirketOtomasyonu.Data", "SirketOtomasyonu.Data\SirketOtomasyonu.Data.csproj", "{34AC9683-EE10-4C96-AAB3-B56EDC0CBA7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SirketOtomasyonu.Data", "SirketOtomasyonu.Data\SirketOtomasyonu.Data.csproj", "{34AC9683-EE10-4C96-AAB3-B56EDC0CBA7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{730E992D-A624-493F-B190-28794FE129F3}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\sametcekin\Desktop\sql.sql = C:\Users\sametcekin\Desktop\sql.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

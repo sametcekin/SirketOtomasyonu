@@ -8,5 +8,7 @@ namespace SirketOtomasyonu.Models.Account
         public string KullaniciAdi { get; set; }
         [Required]
         public string Sifre { get; set; }
+
+        public bool BeniHatirla { get; set; }
     }
 }
